@@ -8,6 +8,13 @@ export interface Pagination {
   offset: number;
 }
 
+export const defaultPaginationParams: Pagination = {
+  page: 1,
+  limit: 100,
+  size: 100,
+  offset: 100,
+};
+
 export const getPaginationParams = (page: number, size: number): Pagination => {
   // check if page and size are valid
   if (isNaN(page) || page < 0 || isNaN(size) || size < 0) {
@@ -27,8 +34,8 @@ export const getPaginationParams = (page: number, size: number): Pagination => {
 export const PaginationParams = createParamDecorator(
   (data, ctx: ExecutionContext): Pagination => {
     const req: Request = ctx.switchToHttp().getRequest();
-    const page = parseInt(req.query.page as string);
-    const size = parseInt(req.query.size as string);
+    const page = parseInt(req.query.page as string) || 1;
+    const size = parseInt(req.query.size as string) || 100;
 
     return getPaginationParams(page, size);
   },
