@@ -10,7 +10,7 @@ import {
   Pagination,
   PaginationParams,
 } from '../../common/decorators/paginationParams';
-import { ProductsResponse } from './entities/products.entities';
+import { ProductsResponse } from './entities/productsResponse.entities';
 
 @Controller('products')
 export class ProductsController {
@@ -20,8 +20,7 @@ export class ProductsController {
   async getAllProducts(
     @PaginationParams() paginationParams: Pagination = defaultPaginationParams,
   ): Promise<ProductsResponse> {
-    return new ProductsResponse(
-      this.productsService.getProducts(paginationParams),
-    );
+    const result = await this.productsService.getProducts(paginationParams);
+    return new ProductsResponse(result);
   }
 }

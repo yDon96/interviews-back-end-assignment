@@ -1,25 +1,35 @@
-import {
-  IProducts,
-  IProductsResponse,
-} from '../interfaces/products.interfaces';
-import { Exclude, Expose } from 'class-transformer';
-import {
-  IFetchResult,
-  PaginationResponse,
-} from '../../../common/interfaces/pagination.interfaces';
-import { getPaginationResponseFrom } from '../../../common/utils/paginationUtils';
+import { InferSchemaType, Schema, model, Model } from 'mongoose';
+import { IProduct } from '../interfaces/products.interfaces';
 
-export class ProductsResponse implements IProductsResponse {
-  data: IProducts[];
-  @Exclude()
-  dataInfo: IFetchResult;
-
-  @Expose()
-  get pagination(): PaginationResponse {
-    return getPaginationResponseFrom(this.dataInfo);
-  }
-
-  constructor(partial: Partial<IProductsResponse>) {
-    Object.assign(this, partial);
-  }
+export interface ProductSchemaStatics {
+  getSlice(page: number, limit: number): Promise<any>;
 }
+
+export const ProductSchema = new Schema<
+  IProduct,
+  Model<IProduct>,
+  ProductSchemaStatics
+>(
+  {
+    _id: String,
+    name: String,
+    image: String,
+    price: Number,
+    availableQuantity: Number,
+    category: String,
+  },
+  {
+    statics: {
+      getSlice(page: number, limit: number) {
+        return this.find({})
+          .lean()
+          .skip((page - 1) * limit)
+          .limit(limit)
+          .exec();
+      },
+    },
+  },
+);
+export type TProductSchema = InferSchemaType<typeof ProductSchema>;
+
+export const ProductModel = model('product', ProductSchema);

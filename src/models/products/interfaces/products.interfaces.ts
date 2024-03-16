@@ -1,6 +1,7 @@
 import { IFetchResult } from '../../../common/interfaces/pagination.interfaces';
 
-export interface IProducts {
+export interface IProduct {
+  _id: string;
   name: string;
   image: string;
   price: number;
@@ -9,6 +10,6 @@ export interface IProducts {
 }
 
 export interface IProductsResponse {
-  data: IProducts[];
+  data: IProduct[];
   dataInfo: IFetchResult;
 }
