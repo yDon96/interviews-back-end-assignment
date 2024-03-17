@@ -5,6 +5,10 @@ export abstract class MockModel<T> {
     this.constructorSpy(createEntityData);
   }
 
+  getEntityStub() {
+    return this.entityStub;
+  }
+
   constructorSpy(_createEntityData: T): void {}
 
   findOne(): { exec: () => T } {
@@ -13,8 +17,12 @@ export abstract class MockModel<T> {
     };
   }
 
-  async find(): Promise<T[]> {
+  async exec(): Promise<T[]> {
     return [this.entityStub];
+  }
+
+  find() {
+    return this;
   }
 
   async getSlice(page, limit): Promise<T[]> {
