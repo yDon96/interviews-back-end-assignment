@@ -6,7 +6,7 @@ import { ICategory } from './interfaces/categories.interfaces';
 export class CategoriesController {
   constructor(private categoriesService: CategoriesService) {}
   @Get('/')
-  async getAllCategories(): Promise<ICategory> {
+  async getAllCategories(): Promise<ICategory[]> {
     return this.categoriesService.findAllCategories();
   }
 }
