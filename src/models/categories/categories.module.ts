@@ -6,9 +6,7 @@ import { CategorySchema } from './entities/category.entities';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: 'categories', schema: CategorySchema },
-    ]),
+    MongooseModule.forFeature([{ name: 'categories', schema: CategorySchema }]),
   ],
   providers: [CategoriesService],
   controllers: [CategoriesController],

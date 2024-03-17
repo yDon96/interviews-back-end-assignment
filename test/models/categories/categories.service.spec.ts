@@ -2,8 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { CategoriesService } from '../../../src/models/categories/categories.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { CategoryMockModel } from '../../__mock__/categoryMock.model';
-import { Pagination } from '../../../src/common/decorators/paginationParams';
-import * as module from "module";
 
 describe('CategoriesService', () => {
   let service: CategoriesService;
