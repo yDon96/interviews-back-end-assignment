@@ -57,4 +57,10 @@ describe('AppController (e2e)', () => {
         .expect(200);
     });
   });
+
+  describe('Categories Endpoints', () => {
+    it('/categories (GET)', () => {
+      return request(app.getHttpServer()).get('/categories').expect(200);
+    });
+  });
 });
