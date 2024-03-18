@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { ICategory } from './interfaces/categories.interfaces';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
@@ -7,6 +7,7 @@ import {
   TCategorySchema,
 } from './entities/category.entities';
 import { IProduct } from '../products/interfaces/products.interfaces';
+import { NotFoundError } from "rxjs";
 
 @Injectable()
 export class CategoriesService {
@@ -23,7 +24,10 @@ export class CategoriesService {
     if (!Types.ObjectId.isValid(categoryId)) {
       throw new BadRequestException('Invalid Category ID');
     }
-
-    return this.categoryModel.findProductsBy(categoryId);
+    const result = await this.categoryModel.findProductsBy(categoryId);
+    if (!result) {
+      throw new NotFoundException('No products found!');
+    }
+    return result;
   }
 }

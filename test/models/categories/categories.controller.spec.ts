@@ -37,6 +37,7 @@ describe('CategoriesController', () => {
           _id: 'id',
           name: 'catExample',
           elementsCount: 10,
+          products: [faker.string.sample()],
         },
       ];
       const spy = jest

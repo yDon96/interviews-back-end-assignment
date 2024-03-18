@@ -79,5 +79,21 @@ describe('AppController (e2e)', () => {
           done();
         });
     });
+
+    it('/categories/:id/products (GET) with not existing id should throw Not found', (done) => {
+      const expectedResponse = {
+        error: 'Not Found',
+        message: 'No products found!',
+        statusCode: 404,
+      };
+      const id = faker.database.mongodbObjectId();
+      request(app.getHttpServer())
+        .get(`/categories/${id}/products`)
+        .expect(400)
+        .end((err, res) => {
+          expect(res.body).toEqual(expectedResponse);
+          done();
+        });
+    });
   });
 });

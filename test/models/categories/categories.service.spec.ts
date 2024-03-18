@@ -86,5 +86,16 @@ describe('CategoriesService', () => {
 
       expect(spy).not.toHaveBeenCalled();
     });
+
+    it('should should return Not found if query return null', async () => {
+      const spy = jest.spyOn(model, 'findProductsBy').mockResolvedValue(null);
+      try {
+        await service.findProductsBy(id);
+      } catch (e) {
+        expect(e.message).toBe('No products found!');
+      }
+
+      expect(spy).toBeCalledWith(id);
+    });
   });
 });

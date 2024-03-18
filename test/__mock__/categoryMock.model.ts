@@ -6,6 +6,7 @@ export class CategoryMockModel extends MockModel<ICategory> {
     _id: 'string',
     name: 'string',
     elementsCount: 0,
+    products: []
   };
 
   async findProductsBy(categoryId: string) {
