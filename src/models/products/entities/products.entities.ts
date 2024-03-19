@@ -11,12 +11,15 @@ export const ProductSchema = new Schema<
   ProductSchemaStatics
 >(
   {
-    _id: String,
+    _id: Schema.Types.ObjectId,
     name: String,
     image: String,
     price: Number,
     availableQuantity: Number,
-    category: String,
+    category: {
+      type: String,
+      ref: 'categories',
+    },
   },
   {
     statics: {
